@@ -1,0 +1,48 @@
+﻿@page "/"
+
+@using CustomSelect.CustCtrls;
+
+<h1>Persons</h1>
+
+<EditForm Model="persons">
+    <div class="form-group">
+        <label for="Gender ">Gender (no onChange exent)</label>
+        <CustomInputSelect @bind-Value="persons.Gender" @onchange="Changed" class="form-control" id="Number">
+            @for (int i = 0; i < 3; i++)
+            {
+                <option value="@(i + 1)">@Genders[i]</option>
+            }
+        </CustomInputSelect>
+    </div>
+
+    <div class="form-group">
+        <label for="Gender ">Gender</label>
+        <CustomInputSelect @bind-Value="persons.Gender" SelectChanged="SelectChanged" class="form-control" id="Number">
+            @for (int i = 0; i < 3; i++)
+            {
+                <option value="@(i + 1)">@Genders[i]</option>
+            }
+        </CustomInputSelect>
+    </div>
+
+
+</EditForm>
+
+@code{
+
+    string[] Genders = { "Man", "Woman", "Couple" };
+    CustomSelect.Data.Persons persons = new CustomSelect.Data.Persons();
+
+    private void Changed()
+    {
+        Console.WriteLine("Never fired");
+    }
+
+    private void SelectChanged(object result)
+    {
+        Console.WriteLine($"The true value selected: {result}");
+        Console.WriteLine($"The current value in the model: {persons.Gender}");
+    }
+
+
+}
